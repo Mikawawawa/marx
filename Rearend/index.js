@@ -7,14 +7,14 @@ const createError = require("http-errors")
 const config = require("./config.json")
 
 const mainRouter=require("./routes/index")
-const apiRouter = require("./routes/api")
+// const apiRouter = require("./routes/api")
 const docRouter = require('./routes/doc')
 
 const app = express()
 
 // 使用路由
 app.use("/",mainRouter)
-app.use("/api", apiRouter)
+// app.use("/api", apiRouter)
 app.use('/doc', docRouter)
 
 // 静态目录
