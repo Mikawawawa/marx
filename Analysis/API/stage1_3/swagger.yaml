@@ -34,7 +34,7 @@ paths:
         description: "学号或工号或其他字符串"
         required: true
         type: "string"
-      - name: "passowrd"
+      - name: "password"
         in: "formData"
         description: "MD5加密后的结果"
         required: true
@@ -97,7 +97,7 @@ paths:
         description: "学号或工号或其他字符串"
         required: true
         type: "string"
-      - name: "neo_passowrd"
+      - name: "neo_password"
         in: "formData"
         description: "MD5加密后的结果"
         required: true

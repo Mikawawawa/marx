@@ -7,7 +7,7 @@
     "termsOfService": "http://wekan.mcfhq.com"
   },
   "host": "localhost",
-  "basePath": "/",
+  "basePath": "/api",
   "tags": [
     {
       "name": "user",
@@ -52,7 +52,7 @@
             "type": "string"
           },
           {
-            "name": "passowrd",
+            "name": "password",
             "in": "formData",
             "description": "MD5加密后的结果",
             "required": true,
@@ -126,7 +126,7 @@
         }
       }
     },
-    "/user/reset_password": {
+    "/user/modify_password": {
       "post": {
         "tags": [
           "user"
@@ -139,9 +139,28 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "description": "学号或工号或其他字符串",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "neo_password",
+            "in": "formData",
+            "description": "MD5加密后的结果",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "操作成功"
+            "description": "操作成功",
+            "schema": {
+              "$ref": "#/definitions/ActionState"
+            }
           }
         }
       }
@@ -151,25 +170,51 @@
     "Userinfo": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "id号",
-          "default": "16041519"
+        "status": {
+          "type": "integer",
+          "description": "状态码",
+          "default": "1"
         },
-        "name": {
-          "type": "string",
-          "description": "用户名",
-          "default": "周树人"
+        "info": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "id号"
+            },
+            "usertype": {
+              "type": "object",
+              "format": "int64",
+              "minItems": 1,
+              "maxItems": 3,
+              "example": [
+                {
+                  "1": "true"
+                },
+                {
+                  "2": "false"
+                },
+                {
+                  "3": "false"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "ActionState": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "description": "操作状态码，1成功，0失败（暂定）",
+          "default": 0
         },
-        "usertype": {
-          "type": "number",
-          "format": "int64",
-          "minItems": 1,
-          "maxItems": 3,
-          "example": [
-            0,
-            1
-          ]
+        "info": {
+          "type": "string",
+          "description": "提示词，便于前端显示",
+          "default": "发送操作请求成功"
         }
       }
     }

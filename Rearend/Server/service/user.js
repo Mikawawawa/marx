@@ -2,14 +2,17 @@
 const user=require("../models/user")
 
 /**
- * 获取用户权限
+ * Author:姜佐腾
+ * Date:2018年10月7日
+ * Time:20点44分
  * 获取用户权限
  *
  * no response value expected for this operation
  **/
-exports.userGet_powerGET = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
+exports.userGet_powerGET = function(type) {
+  return new Promise(async function(resolve, reject) {
+    let data = await user.getPower(type)
+    resolve(data);
   });
 }
 
@@ -19,7 +22,6 @@ exports.userGet_powerGET = function() {
  * Date:2018年10月7日
  * Time:16点41分
  * 
- * 登录并返回用户身份
  * 登录并返回用户身份
  *
  * id String 学号或工号或其他字符串
@@ -31,7 +33,6 @@ exports.userLoginPOST = function(id,password) {
     let params=await user.login(id,password)
     if(params.status==1){
       let type=await user.getType(id)
-      console.log(type)
       params.info.type=type
       resolve(params)
     }else{
@@ -63,17 +64,9 @@ exports.userLogoutPOST = function() {
  * returns ActionState
  **/
 exports.userModify_passwordPOST = function(id,neo_passowrd) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-    "status" : 0,
-    "info" : "发送操作请求成功"
-    };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+  return new Promise(async function(resolve, reject) {
+    let data=await user.modifyPassword(id,neo_passowrd)
+    resolve(data)
   });
 }
 

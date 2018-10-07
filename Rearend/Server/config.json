@@ -10,5 +10,10 @@
         "database": "marx",
         "charset": "UTF8_GENERAL_CI",
         "debug": false
+    },
+    "session": {
+        "host": "123.206.176.72",
+        "port": "6379",
+        "ttl": 14400
     }
 }
