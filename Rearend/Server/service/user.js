@@ -1,5 +1,5 @@
 'use strict';
-
+const user=require("../models/user")
 
 /**
  * 获取用户权限
@@ -15,6 +15,10 @@ exports.userGet_powerGET = function() {
 
 
 /**
+ * Author:姜佐腾
+ * Date:2018年10月7日
+ * Time:16点41分
+ * 
  * 登录并返回用户身份
  * 登录并返回用户身份
  *
@@ -22,18 +26,16 @@ exports.userGet_powerGET = function() {
  * passowrd String MD5加密后的结果
  * returns Userinfo
  **/
-exports.userLoginPOST = function(id,passowrd) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "name" : "周树人",
-  "usertype" : "",
-  "id" : "16041519"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.userLoginPOST = function(id,password) {
+  return new Promise(async function(resolve, reject) {
+    let params=await user.login(id,password)
+    if(params.status==1){
+      let type=await user.getType(id)
+      console.log(type)
+      params.info.type=type
+      resolve(params)
+    }else{
+      resolve(params)
     }
   });
 }
