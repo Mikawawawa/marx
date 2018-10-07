@@ -81,7 +81,7 @@ paths:
       responses:
         200:
           description: "操作成功"
-  /user/reset_password:
+  /user/modify_password:
     post:
       tags:
       - "user"
@@ -91,9 +91,22 @@ paths:
       - "application/x-www-form-urlencoded"
       produces:
       - "application/json"
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "学号或工号或其他字符串"
+        required: true
+        type: "string"
+      - name: "neo_passowrd"
+        in: "formData"
+        description: "MD5加密后的结果"
+        required: true
+        type: "string"
       responses:
         200:
           description: "操作成功"
+          schema:
+            $ref: "#/definitions/ActionState"
   
         
 
@@ -118,3 +131,14 @@ definitions:
           0,
           1
       ]
+  ActionState:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+        description: "操作状态码，1成功，0失败（暂定）"
+        default: 0
+      info:
+        type: "string"
+        description: "提示词，便于前端显示"
+        default: "发送操作请求成功"
