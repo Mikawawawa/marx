@@ -58,8 +58,8 @@ export default {
       this.$router.push("./home")
     }
   },
-  onCreate:()=>{
-    if(this.$store.id){
+  created() {
+    if(this.$store.state.id){
       this.$router.push("./home")
     }
   }
