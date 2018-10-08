@@ -11,7 +11,7 @@
       <div class="form">
         <md-field>
           <label>ID号</label>
-          <md-input v-model="login.email" autofocus></md-input>
+          <md-input v-model="login.id" autofocus></md-input>
         </md-field>
 
         <md-field md-has-password>
@@ -35,23 +35,32 @@
 </template>
 
 <script>
+// import request from "../service/request"
+const api=require("../service/user")
+
 export default {
   name: "App",
   data() {
     return {
       loading: false,
       login: {
-        email: "",
+        id: "",
         password: ""
       }
     };
   },
   methods: {
-    auth() {
+    async auth() {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 5000);
+      let data=await api.login(this.login.id,this.login.password)
+      this.loading = false;
+      this.$store.commit("setUser",data.info.id)
+      this.$router.push("./home")
+    }
+  },
+  onCreate:()=>{
+    if(this.$store.id){
+      this.$router.push("./home")
     }
   }
 };

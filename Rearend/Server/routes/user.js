@@ -18,10 +18,9 @@ app.post('/login', async (req, res, next)=>{
     if(params.status==1){
         req.session.id=req.body.id
         req.session.type=params.info.type
-        console.log(req.session.type)
     }
     res.send(params)
-  });
+});
 
   /**
    * 业务流程

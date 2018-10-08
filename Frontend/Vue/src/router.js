@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 
 import Login from './views/Login.vue'
 import About from "./views/About.vue"
+import Home from "./views/Home.vue"
 
 const  routes=[
     {
@@ -18,6 +19,11 @@ const  routes=[
       path: '/reset',
       name: 'reset',
       component: About
+    },
+    {
+      path:'/home',
+      name:'home',
+      component: Home
     }
   ]
 
